@@ -1,0 +1,24 @@
+{
+  "name": "researchhuddle",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ResearchHuddle - a social network for scientists and researchers with ORCID sign-in",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "node scripts/init-db.js && next start -p ${PORT:-3000}",
+    "init-db": "node scripts/init-db.js",
+    "digest": "node scripts/send-digest.js",
+    "lint": "next lint"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "next": "14.2.28",
+    "nodemailer": "6.9.16",
+    "pg": "8.13.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}
