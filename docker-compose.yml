@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: researchhuddle
+      POSTGRES_USER: researchhuddle
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - researchhuddle_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U researchhuddle -d researchhuddle"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://researchhuddle:${POSTGRES_PASSWORD}@db:5432/researchhuddle
+      NODE_ENV: production
+    ports:
+      - "127.0.0.1:${HOST_PORT:-3040}:3000"
+
+volumes:
+  researchhuddle_pgdata:
