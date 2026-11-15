@@ -9,7 +9,8 @@
     "start": "node scripts/init-db.js && next start -p ${PORT:-3000}",
     "init-db": "node scripts/init-db.js",
     "digest": "node scripts/send-digest.js",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "node --test \"test/**/*.test.js\""
   },
   "engines": {
     "node": ">=20"
